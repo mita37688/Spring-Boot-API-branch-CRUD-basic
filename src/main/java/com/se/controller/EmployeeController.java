@@ -1,6 +1,7 @@
 package com.se.controller;
 
 import com.se.entity.Employee;
+import com.se.error.EmployeeNotFoundException;
 import com.se.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
-    Employee getEmployeeId(@PathVariable("id") Long employeeId){
+    Employee getEmployeeId(@PathVariable("id") Long employeeId) throws EmployeeNotFoundException {
         return employeeService.getEmployeeById(employeeId);
     }
 

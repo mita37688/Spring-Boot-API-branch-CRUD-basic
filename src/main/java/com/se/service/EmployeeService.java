@@ -1,6 +1,7 @@
 package com.se.service;
 
 import com.se.entity.Employee;
+import com.se.error.EmployeeNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface EmployeeService {
 
     List<Employee> getAllEmployees();
 
-    Employee getEmployeeById(Long employeeId);
+    Employee getEmployeeById(Long employeeId) throws EmployeeNotFoundException;
 
     void deleteById(Long employeeId);
 

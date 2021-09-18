@@ -1,11 +1,13 @@
 package com.se.service;
 
 import com.se.entity.Employee;
+import com.se.error.EmployeeNotFoundException;
 import com.se.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ImployeeServiceImpl implements EmployeeService{
@@ -24,8 +26,11 @@ public class ImployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Employee getEmployeeById(Long employeeId) {
-        return employeeRepository.findById(employeeId).get();
+    public Employee getEmployeeById(Long employeeId) throws EmployeeNotFoundException {
+        Optional<Employee> employee = employeeRepository.findById(employeeId);
+        if(!employee.isPresent())
+            throw new EmployeeNotFoundException("Employee Not Found!!!");
+        return employee.get();
     }
 
     @Override
