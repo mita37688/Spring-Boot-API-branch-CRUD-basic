@@ -1,10 +1,12 @@
 package com.se.controller;
 
 import com.se.entity.Employee;
+import com.se.model.EmployeeDTO;
 import com.se.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,8 +21,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    List<Employee> getAllEmployees(){
-        return employeeService.getAllEmployees();
+    List<EmployeeDTO> getAllEmployees(){
+        List<Employee> employees = employeeService.getAllEmployees();
+        List<EmployeeDTO> dtoList = new ArrayList<>();
+        for (Employee employee : employees){
+            dtoList.add(new EmployeeDTO(employee));
+        }
+        return dtoList;
     }
 
     @GetMapping("/employees/{id}")
